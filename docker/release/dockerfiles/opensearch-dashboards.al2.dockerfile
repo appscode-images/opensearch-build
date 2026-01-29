@@ -75,7 +75,7 @@ COPY --from=mikefarah/yq:4 /usr/bin/yq /usr/local/bin/yq
 WORKDIR $OPENSEARCH_DASHBOARDS_HOME
 
 RUN chgrp -R 0 /usr/share/opensearch-dashboards && \
-    chmod -R g=u /usr/share/opensearch-dashboards \
+    chmod -R g=u /usr/share/opensearch-dashboards
 
 # Set PATH
 ENV PATH=$PATH:$OPENSEARCH_DASHBOARDS_HOME/bin
