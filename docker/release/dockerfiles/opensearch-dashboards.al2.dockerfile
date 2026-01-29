@@ -68,14 +68,14 @@ RUN groupadd -g $GID opensearch-dashboards && \
 
 COPY --from=linux_stage_0 --chown=$UID:$GID $OPENSEARCH_DASHBOARDS_HOME $OPENSEARCH_DASHBOARDS_HOME
 
+# 1. Pull yq binary from official image
+COPY --from=mikefarah/yq:4 /usr/bin/yq /usr/local/bin/yq
+
 # Setup OpenSearch-dashboards
 WORKDIR $OPENSEARCH_DASHBOARDS_HOME
 
 RUN chgrp -R 0 /usr/share/opensearch-dashboards && \
-    chmod -R g=u /usr/share/opensearch-dashboards \
-
-# 1. Pull yq binary from official image
-COPY --from=mikefarah/yq:4 /usr/bin/yq /usr/local/bin/yq
+    chmod -R g=u /usr/share/opensearch-dashboards
 
 # Set PATH
 ENV PATH=$PATH:$OPENSEARCH_DASHBOARDS_HOME/bin
