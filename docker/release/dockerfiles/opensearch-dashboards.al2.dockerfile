@@ -72,7 +72,7 @@ COPY --from=linux_stage_0 --chown=$UID:$GID $OPENSEARCH_DASHBOARDS_HOME $OPENSEA
 WORKDIR $OPENSEARCH_DASHBOARDS_HOME
 
 RUN chgrp -R 0 /usr/share/opensearch-dashboards && \
-    chmod -R g=u /usr/share/opensearch-dashboards \
+    chmod -R g=u /usr/share/opensearch-dashboards
 
 
 # 1. Pull yq binary from official image
