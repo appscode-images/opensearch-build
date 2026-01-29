@@ -65,6 +65,9 @@ ARG OPENSEARCH_DASHBOARDS_HOME=/usr/share/opensearch-dashboards
 # Setup OpenSearch-dashboards
 WORKDIR $OPENSEARCH_DASHBOARDS_HOME
 
+# 1. Pull yq binary from official image
+COPY --from=mikefarah/yq:4 /usr/bin/yq /usr/local/bin/yq
+
 # Update packages
 # Install the tools we need: tar and gzip to unpack the OpenSearch tarball, and shadow-utils to give us `groupadd` and `useradd`.
 # Install which to allow running of securityadmin.sh
