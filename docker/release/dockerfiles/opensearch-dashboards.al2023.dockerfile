@@ -62,15 +62,15 @@ RUN dnf update --releasever=latest -y && dnf install -y tar gzip shadow-utils wh
 # Install Reporting dependencies
 RUN dnf install -y nss xorg-x11-fonts-100dpi xorg-x11-fonts-75dpi xorg-x11-utils xorg-x11-fonts-cyrillic xorg-x11-fonts-Type1 xorg-x11-fonts-misc fontconfig freetype && dnf clean all
 
-RUN chgrp -R 0 /usr/share/opensearch-dashboards && \
-    chmod -R g=u /usr/share/opensearch-dashboards
-
 # 1. Pull yq binary from official image
 COPY --from=mikefarah/yq:4 /usr/bin/yq /usr/local/bin/yq
 
 # Create an opensearch-dashboards user, group
 RUN groupadd -g $GID opensearch-dashboards && \
     adduser -u $UID -g $GID -d $OPENSEARCH_DASHBOARDS_HOME opensearch-dashboards
+
+RUN chgrp -R 0 /usr/share/opensearch-dashboards && \
+    chmod -R g=u /usr/share/opensearch-dashboards
 
 COPY --from=linux_stage_0 --chown=$UID:$GID $OPENSEARCH_DASHBOARDS_HOME $OPENSEARCH_DASHBOARDS_HOME
 
